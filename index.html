@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@icodethis challange - find-friends</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+</head>
+<body>
+    <style type="text/css">
+        body, html {
+            margin: 0px;
+            padding: 0px;
+            width: 100%;
+            height: 100%;
+            background-color: #226ce6;
+            font-family: 'Open Sans', sans-serif;
+        }
+        * {
+            box-sizing: border-box;
+        }
+        .card {
+            margin: 150px auto;
+            max-width: 500px;
+            min-height: 400px;
+            background-color: #d5ecff;
+            position: relative;
+            -webkit-box-shadow: 0px 30px 37px 11px rgba(20,75,171,0.60); 
+            box-shadow: 0px 30px 37px 11px rgba(20,75,171,0.60);
+        }
+
+        .card > div:first-of-type {
+            background: rgb(13,71,162);
+            background: linear-gradient(84deg, rgba(13,71,162,1) 0%, rgba(26,102,220,1) 100%);
+            width: 100%;
+            color: white;
+            padding: 15px;
+        }
+
+        .card .header {
+            color:white; 
+            font-size: 30px;
+            font-weight: 400;
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        ::placeholder {
+            font-size: 18px;
+            font-weight: 300;
+            color: white;
+            letter-spacing: 1px;
+        }
+
+        input[type=text], input[type=text]:focus {
+            background-color: #356dc4; 
+            padding: 25px; 
+            border-radius: 40px; 
+            border: 0px; 
+            width: 98%; 
+            margin: auto;
+            display: block;
+            margin-bottom: 10px;
+            color: white;
+            font-size: 18px;
+            letter-spacing: 1px;
+            font-weight: 300;
+            padding-left: 70px;
+        	background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='36' viewBox='0 0 24 24' stroke-width='2' stroke='%2387acd8' fill='none' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath stroke='none' d='M0 0h24v24H0z' fill='none'/%3E%3Ccircle cx='10' cy='10' r='7' /%3E%3Cline x1='21' y1='21' x2='15' y2='15' /%3E%3C/svg%3E") no-repeat left #356dc4;
+            background-position-x: 20px;
+        }
+
+        svg {
+            position: absolute;
+            left: 28px;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background-color: transparent;
+            transition: all 0.3ms ease;
+
+        }
+
+        svg:hover {
+            transition: all 0.3ms ease;
+            border-radius: 50%;
+            background-color: #356dc4;
+            cursor: pointer;
+        }
+
+        .container {
+            display: flex;
+            }
+
+            .item {
+            height: 100px;
+            width: 100px; /* A fixed width as the default */
+            }
+
+            .item-center { 
+            flex-grow: 1; /* Set the middle element to grow and stretch */
+            }        
+    </style>
+    <div class="card">
+        <div>
+            <div class="header">
+                <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 26 24" stroke-width="2.5" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                    <polyline points="15 6 9 12 15 18" />
+                  </svg>
+                                  Find Friends
+            </div>
+            <input type="text" placeholder="Enter a friend's name" id="filter">
+            <script>
+                $(document).ready(function(){
+                $("#filter").keyup(function(){
+                    var filter = $(this).val(), count = 0;
+                    var regex = new RegExp(filter, "i");
+                    $(".users-container").each(function(){
+                        if ($(this).text().search(regex) < 0) $(this).hide();
+                        else {
+                            $(this).show();
+                            count++;
+                        }
+                        });
+                    });
+                });
+            </script>
+        </div>
+        <style>
+            .users-container {
+              display: flex;
+              justify-content: space-around; 
+              align-items: center; 
+              /* flex-flow: row nowrap; */ 
+              flex-direction: row; 
+              flex-wrap: nowrap; 
+              align-content: stretch;
+              height: 100%;
+              padding: 15px;
+              gap: 5px;
+          
+            }
+          
+            .users-container div:first-of-type {
+              padding: 8px;
+              flex-grow:4;
+              font-size: 18px;
+              font-weight: 600;
+              color: #0d47a1;
+            }
+
+            .users-container div:nth-of-type(2) {
+              padding: 8px;
+              flex-grow:1;
+              min-width: 110px;
+              text-align: right;
+
+            }
+
+            .users-container div:nth-of-type(2) button {
+                padding: 13px 40px;
+                background: rgb(13,71,162);
+                background: linear-gradient(84deg, rgba(13,71,162,1) 0%, rgba(26,102,220,1) 100%);
+                border: 1px solid #3974d2;
+                border-radius: 40px;
+                color: white;
+                font-size: 20px;
+                transition: all 0.4ms ease;
+                display: block;
+                width: 100%;
+                cursor: pointer;
+                -webkit-box-shadow: 0px 12px 37px -13px rgba(20,75,171,0.90); 
+                box-shadow: 0px 12px 37px -13px rgba(20,75,171,0.90);
+            }
+
+            .users-container div:first-of-type img {
+                vertical-align: middle; 
+                border:6px solid #a8c5f2;
+                border-radius: 50%; 
+                margin-right: 10px;
+            }
+          </style>
+          
+        <div class="users-container">
+            <div>
+                <img src="https://thispersondoesnotexist.com/image" width="100" height="100">
+                Jason Graham
+            </div>
+            <div>
+                <button>Follow</button>
+            </div>
+        </div>
+        <div class="users-container">
+            <div>
+                <img src="https://thispersondoesnotexist.com/image" width="100" height="100">
+                Ophelia Gaddy
+            </div>
+            <div>
+                <button>Follow</button>
+            </div>
+        </div>
+        <div class="users-container">
+            <div>
+                <img src="https://thispersondoesnotexist.com/image" width="100" height="100">
+                Lillian Whitmire
+            </div>
+            <div>
+                <button>Follow</button>
+            </div>
+        </div>
+        <div class="users-container">
+            <div>
+                <img src="https://thispersondoesnotexist.com/image" width="100" height="100">
+                Joseph Sheperd
+            </div>
+            <div>
+                <button>Follow</button>
+            </div>
+        </div>
+        <div class="users-container">
+            <div>
+                <img src="https://thispersondoesnotexist.com/image" width="100" height="100">
+                Alex R. Prowell
+            </div>
+            <div>
+                <button>Follow</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
